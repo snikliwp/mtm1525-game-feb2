@@ -1,12 +1,12 @@
 ﻿package  {
-	
+	// https://developer.mozilla.org/samples/domref/dispatchEvent.html
 	import flash.display.MovieClip;
 	import flash.events.MouseEvent;
 	import flash.events.Event;
 	import flash.display.DisplayObject;
 	import flash.geom.Point;				//for the starting point
 	
-	public class SnowmanDoc extends MovieClip {
+	public class puzzles extends MovieClip {
 		
 		//create the global var for tracking the dragging object
 		public var currentObj:MovieClip = null;
@@ -21,7 +21,23 @@
 		
 		public function addDropPoints():void{
 			//add the possible drop zones for each draggable object
-			topA_mc.dropzone = topLayer_mc;
+			puzz1_a1.dropzone = base_a1;
+			puzz1_a2.dropzone = base_a1;
+			puzz1_a3.dropzone = base_a1;
+			puzz1_a4.dropzone = base_a1;
+			puzz1_a5.dropzone = base_a1;
+			puzz1_a6.dropzone = base_a1;
+			puzz1_a7.dropzone = base_a1;
+			puzz1_a8.dropzone = base_a1;
+			puzz1_a9.dropzone = base_a1;
+			puzz1_a10.dropzone = base_a1;
+			puzz1_a11.dropzone = base_a1;
+			puzz1_a12.dropzone = base_a1;
+			puzz1_a13.dropzone = base_a1;
+			puzz1_a14.dropzone = base_a1;
+			puzz1_a15.dropzone = base_a1;
+			puzz1_a16.dropzone = base_a1;
+			puzz1_a17.dropzone = base_a1;
 			topB_mc.dropzone = topLayer_mc;
 			middleA_mc.dropzone = middleLayer_mc;
 			middleB_mc.dropzone = middleLayer_mc;
