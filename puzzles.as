@@ -13,6 +13,7 @@
 		
 		public function puzzles() {
 			// constructor code
+			puzz1_all.visible = false;
 			addDropPoints();
 			setStartPoints();
 			addDragging();
@@ -22,50 +23,116 @@
 		public function addDropPoints():void{
 			//add the possible drop zones for each draggable object
 			puzz1_a1.dropzone = base_a1;
-			puzz1_a2.dropzone = base_a1;
-			puzz1_a3.dropzone = base_a1;
-			puzz1_a4.dropzone = base_a1;
-			puzz1_a5.dropzone = base_a1;
-			puzz1_a6.dropzone = base_a1;
-			puzz1_a7.dropzone = base_a1;
-			puzz1_a8.dropzone = base_a1;
-			puzz1_a9.dropzone = base_a1;
-			puzz1_a10.dropzone = base_a1;
-			puzz1_a11.dropzone = base_a1;
-			puzz1_a12.dropzone = base_a1;
-			puzz1_a13.dropzone = base_a1;
-			puzz1_a14.dropzone = base_a1;
-			puzz1_a15.dropzone = base_a1;
-			puzz1_a16.dropzone = base_a1;
-			puzz1_a17.dropzone = base_a1;
-			topB_mc.dropzone = topLayer_mc;
-			middleA_mc.dropzone = middleLayer_mc;
-			middleB_mc.dropzone = middleLayer_mc;
+			puzz1_a2.dropzone = base_a2;
+			puzz1_a3.dropzone = base_a3;
+			puzz1_a4.dropzone = base_a4;
+			puzz1_a5.dropzone = base_a5;
+			puzz1_b1.dropzone = base_b1;
+			puzz1_b2.dropzone = base_b2;
+			puzz1_b3.dropzone = base_b3;
+			puzz1_b4.dropzone = base_b4;
+			puzz1_b5.dropzone = base_b5;
+			puzz1_c1.dropzone = base_c1;
+			puzz1_c2.dropzone = base_c2;
+			puzz1_c3.dropzone = base_c3;
+			puzz1_c4.dropzone = base_c4;
+			puzz1_c5.dropzone = base_c5;
+			puzz1_d1.dropzone = base_d1;
+			puzz1_d2.dropzone = base_d2;
+			puzz1_d3.dropzone = base_d3;
+			puzz1_d4.dropzone = base_d4;
+			puzz1_d5.dropzone = base_d5;
 		}
 		
 		public function setStartPoints():void{
 			//starting points
 			//use the Point object
-			topA_mc.startPoint = new Point(topA_mc.x, topA_mc.y);
-			topB_mc.startPoint = new Point(topB_mc.x, topB_mc.y);
-			middleA_mc.startPoint = new Point(middleA_mc.x, middleA_mc.y);
-			middleB_mc.startPoint = new Point(middleB_mc.x, middleB_mc.y);
+			puzz1_a1.startPoint = new Point(puzz1_a1.x, puzz1_a1.y);
+			puzz1_a2.startPoint = new Point(puzz1_a2.x, puzz1_a2.y);
+			puzz1_a3.startPoint = new Point(puzz1_a3.x, puzz1_a3.y);
+			puzz1_a4.startPoint = new Point(puzz1_a4.x, puzz1_a4.y);
+			puzz1_a5.startPoint = new Point(puzz1_a5.x, puzz1_a5.y);
+			puzz1_b1.startPoint = new Point(puzz1_b1.x, puzz1_b1.y);
+			puzz1_b2.startPoint = new Point(puzz1_b2.x, puzz1_b2.y);
+			puzz1_b3.startPoint = new Point(puzz1_b3.x, puzz1_b3.y);
+			puzz1_b4.startPoint = new Point(puzz1_b4.x, puzz1_b4.y);
+			puzz1_b5.startPoint = new Point(puzz1_b5.x, puzz1_b5.y);
+			puzz1_c1.startPoint = new Point(puzz1_c1.x, puzz1_c1.y);
+			puzz1_c2.startPoint = new Point(puzz1_c2.x, puzz1_c2.y);
+			puzz1_c3.startPoint = new Point(puzz1_c3.x, puzz1_c3.y);
+			puzz1_c4.startPoint = new Point(puzz1_c4.x, puzz1_c4.y);
+			puzz1_c5.startPoint = new Point(puzz1_c5.x, puzz1_c5.y);
+			puzz1_d1.startPoint = new Point(puzz1_d1.x, puzz1_a1.y);
+			puzz1_d2.startPoint = new Point(puzz1_d2.x, puzz1_d2.y);
+			puzz1_d3.startPoint = new Point(puzz1_d3.x, puzz1_d3.y);
+			puzz1_d4.startPoint = new Point(puzz1_d4.x, puzz1_d4.y);
+			puzz1_d5.startPoint = new Point(puzz1_d5.x, puzz1_d5.y);
 
 		}
 		
 		public function addDragging():void{
 			//add the event listeners to the objects so they can be dragged
-			topA_mc.addEventListener(MouseEvent.MOUSE_DOWN, beginDrag);
-			topA_mc.addEventListener(MouseEvent.MOUSE_UP, endDrag);
+			puzz1_a1.addEventListener(MouseEvent.MOUSE_DOWN, beginDrag);
+			puzz1_a1.addEventListener(MouseEvent.MOUSE_UP, endDrag);
 			
-			topB_mc.addEventListener(MouseEvent.MOUSE_DOWN, beginDrag);
-			topB_mc.addEventListener(MouseEvent.MOUSE_UP, endDrag);
-						
-			middleA_mc.addEventListener(MouseEvent.MOUSE_DOWN, beginDrag);
-			middleA_mc.addEventListener(MouseEvent.MOUSE_UP, endDrag);
+			puzz1_a2.addEventListener(MouseEvent.MOUSE_DOWN, beginDrag);
+			puzz1_a2.addEventListener(MouseEvent.MOUSE_UP, endDrag);
 			
-			middleB_mc.addEventListener(MouseEvent.MOUSE_DOWN, beginDrag);
-			middleB_mc.addEventListener(MouseEvent.MOUSE_UP, endDrag);
+			puzz1_a3.addEventListener(MouseEvent.MOUSE_DOWN, beginDrag);
+			puzz1_a3.addEventListener(MouseEvent.MOUSE_UP, endDrag);
+			
+			puzz1_a4.addEventListener(MouseEvent.MOUSE_DOWN, beginDrag);
+			puzz1_a4.addEventListener(MouseEvent.MOUSE_UP, endDrag);
+			
+			puzz1_a5.addEventListener(MouseEvent.MOUSE_DOWN, beginDrag);
+			puzz1_a5.addEventListener(MouseEvent.MOUSE_UP, endDrag);
+			
+			puzz1_b1.addEventListener(MouseEvent.MOUSE_DOWN, beginDrag);
+			puzz1_b1.addEventListener(MouseEvent.MOUSE_UP, endDrag);
+			
+			puzz1_b2.addEventListener(MouseEvent.MOUSE_DOWN, beginDrag);
+			puzz1_b2.addEventListener(MouseEvent.MOUSE_UP, endDrag);
+			
+			puzz1_b3.addEventListener(MouseEvent.MOUSE_DOWN, beginDrag);
+			puzz1_b3.addEventListener(MouseEvent.MOUSE_UP, endDrag);
+			
+			puzz1_b4.addEventListener(MouseEvent.MOUSE_DOWN, beginDrag);
+			puzz1_b4.addEventListener(MouseEvent.MOUSE_UP, endDrag);
+			
+			puzz1_b5.addEventListener(MouseEvent.MOUSE_DOWN, beginDrag);
+			puzz1_b5.addEventListener(MouseEvent.MOUSE_UP, endDrag);
+			
+			puzz1_c1.addEventListener(MouseEvent.MOUSE_DOWN, beginDrag);
+			puzz1_c1.addEventListener(MouseEvent.MOUSE_UP, endDrag);
+			
+			puzz1_c2.addEventListener(MouseEvent.MOUSE_DOWN, beginDrag);
+			puzz1_c2.addEventListener(MouseEvent.MOUSE_UP, endDrag);
+			
+			puzz1_c3.addEventListener(MouseEvent.MOUSE_DOWN, beginDrag);
+			puzz1_c3.addEventListener(MouseEvent.MOUSE_UP, endDrag);
+			
+			puzz1_c4.addEventListener(MouseEvent.MOUSE_DOWN, beginDrag);
+			puzz1_c4.addEventListener(MouseEvent.MOUSE_UP, endDrag);
+			
+			puzz1_c5.addEventListener(MouseEvent.MOUSE_DOWN, beginDrag);
+			puzz1_c5.addEventListener(MouseEvent.MOUSE_UP, endDrag);
+			
+			puzz1_d1.addEventListener(MouseEvent.MOUSE_DOWN, beginDrag);
+			puzz1_d1.addEventListener(MouseEvent.MOUSE_UP, endDrag);
+			
+			puzz1_d2.addEventListener(MouseEvent.MOUSE_DOWN, beginDrag);
+			puzz1_d2.addEventListener(MouseEvent.MOUSE_UP, endDrag);
+			
+			puzz1_d3.addEventListener(MouseEvent.MOUSE_DOWN, beginDrag);
+			puzz1_d3.addEventListener(MouseEvent.MOUSE_UP, endDrag);
+			
+			puzz1_d4.addEventListener(MouseEvent.MOUSE_DOWN, beginDrag);
+			puzz1_d4.addEventListener(MouseEvent.MOUSE_UP, endDrag);
+			
+			puzz1_d5.addEventListener(MouseEvent.MOUSE_DOWN, beginDrag);
+			puzz1_d5.addEventListener(MouseEvent.MOUSE_UP, endDrag);
+			
+			
 			
 			//handle leaving the stage too
 			stage.addEventListener(Event.MOUSE_LEAVE, endDrag);
@@ -73,8 +140,26 @@
 		
 		public function setupDropZones():void{
 			//give each of the drop zones a property to remember if/what it is holding
-			topLayer_mc.holding=null;
-			middleLayer_mc.holding=null;
+			base_a1.holding=null;
+			base_a2.holding=null;
+			base_a3.holding=null;
+			base_a4.holding=null;
+			base_a5.holding=null;
+			base_b1.holding=null;
+			base_b2.holding=null;
+			base_b3.holding=null;
+			base_b4.holding=null;
+			base_b5.holding=null;
+			base_c1.holding=null;
+			base_c2.holding=null;
+			base_c3.holding=null;
+			base_c4.holding=null;
+			base_c5.holding=null;
+			base_d1.holding=null;
+			base_d2.holding=null;
+			base_d3.holding=null;
+			base_d4.holding=null;
+			base_d5.holding=null;
 		}
 		
 		public function beginDrag(ev:MouseEvent):void{
@@ -101,7 +186,7 @@
 			//stop dragging
 			if (currentObj != null) {  // are we dragging something?
 				currentObj.stopDrag();  // if so drop it
-			info_txt.appendText(currentObj.name + "\n");
+//			info_txt.appendText(currentObj.name + "\n");
 			//stop event propagation
 			//decide whether or not to snap the object back to start or on top of dropzone
 			if(currentObj.hitTestPoint(currentObj.dropzone.x, currentObj.dropzone.y, true)) { // am I over my drop zone?
@@ -127,8 +212,8 @@
 		
 		public function isDone():void{
 			//decide if the game is complete and trigger the final animation
-			if(topLayer_mc.holding != null 
-			   && middleLayer_mc.holding != null) 
+//			if(topLayer_mc.holding != null 
+//			   && middleLayer_mc.holding != null) 
 			   {
 				// all dropzones are occupied
 				trace("Game Complete");
