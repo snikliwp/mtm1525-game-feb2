@@ -24,6 +24,7 @@
 //		public var basey:Array = new Array(158.35, 173.35, 162.35, 175.35, 163.35, 234.35, 231.90, 233.35, 234.90, 236.85, 306.90, 310.35, 311.35, 312.35, 312.35, 372.35, 383.35, 375.35, 386.35, 373.35);
 		public var basex:Array = new Array(351.40, 418.35, 502.30, 582.30, 647.97, 340.85, 420.30, 500.30, 580.30, 658.80, 350.85, 418.35, 498.80, 580.35, 647.80, 339.85, 420.80, 499.35, 580.30, 660.35);
 		public var basey:Array = new Array(157.40, 170.90, 160.90, 172.90, 161.90, 234.35, 231.90, 233.35, 234.90, 236.85, 306.90, 310.35, 311.35, 312.35, 312.35, 372.35, 383.35, 375.35, 386.35, 373.35);
+		public var inPlace:Array = new Array;
 		
 		//create the global var for tracking the dragging object
 		
@@ -73,16 +74,17 @@ trace("Starting to add the puzzle A pieces");
 					mc.addEventListener(MouseEvent.MOUSE_UP, endDrag);
 					// setup the start point so we can return the piece to this point
 					mc.startPoint = new Point(mc.x, mc.y);
-//					mc.dropZone = new Point(mc.x, mc.y);
+					// set up the drop zone coordinates
 					mc.dropZone = new Point(basex[i-1], basey[i-1]);
-//					mc.dropZone.x = basex[i-1];
-//					mc.dropZone.y = basey[i-1];
-					
-					mc.inPlace = false;
-trace("puzza.dropZone: ", mc, mc.dropZone, mc.inPlace);
+					// set up a holder to know if we are on the stage					
+					inPlace[mc] = false;
+					mc.txt = tmp;
+trace("puzza.dropZone, inPlace: ", mc, mc.dropZone, mc.inPlace);
 //					mc.holding = null;
 					addChild(mc);
 					i++;
+trace("puzza.dropZone, inPlace: ", mc, mc.dropZone, mc.inPlace);
+					
 				}// endelse
 //				trace("Coordinates over the puzzle base pieces  ", mc.x, mc.y);
 //				trace(mc.dropzone);
@@ -202,6 +204,7 @@ trace("mc: ", mc);
 				mc.stopDrag();  // if so drop it
 //trace("currentObj.dropZone: ", currentObj, currentObj.dropzone);
 trace("mc.dropZone: ", mc, mc.dropZone);
+// trace("mc.inPlace: ", mc, mc.inPlace);
 trace("mc.dropZone.x and y: ", mc, mc.dropZone.x, mc.dropZone.y);
 			//decide whether or not to snap the object back to start or on top of dropzone
 //			if(currentObj.hitTestPoint(currentObj.dropZone.x, currentObj.dropZone.y, true)) { // am I over my drop zone?
@@ -213,11 +216,15 @@ trace("in hitTestPoint if");
 //					currentObj.dropzone.holding = null;
 //					} // endif
 				mc.x = mc.dropZone.x; //yes, well snap to the center of my drop zone
-trace("mc.x = mc.dropzone.x");
+//trace("mc.x = mc.dropzone.x");
 				mc.y = mc.dropZone.y;
-trace("mc.x and mc.y: ", mc, mc.x, mc.y);
-				mc.inPlace = true;
-				isDone();
+//trace("mc.x and mc.y: ", mc, mc.x, mc.y);
+				inPlace[String(mc)] = true;
+				trace("inPlace ", inPlace[String(mc)]);
+				trace("string of mc: ", String(mc));
+// trace("mc.inPlace: ", mc, mc.inPlace);
+				
+				isDone(mc);
 			} // endif
 			else { // not over my drop zone, then go back to my origin
 				mc.x = mc.startPoint.x;
@@ -229,8 +236,11 @@ trace("mc.x and mc.y: ", mc, mc.x, mc.y);
 			
 		} // end function endDrag
 		
-		public function isDone():void{
+		public function isDone(passed):void{
 trace("in function isDone");
+trace("passed: ", passed);
+trace("passed.inPlace: ", passed, passed.inPlace);
+
 			//decide if the game is complete and trigger the final animation
 			var tmp:String;
 			var symbolClass:Class;
@@ -241,15 +251,17 @@ trace("in function isDone");
 				tmp = puzzle + i;
 				symbolClass=getDefinitionByName(tmp) as Class;
 				mc = new symbolClass();
-				trace("mc.inPlace: ", mc.inPlace); 
-				if (mc.inPlace = true) {
+//				trace("mc.inPlace: ", mc, mc.inPlace); 
+				if (inPlace[mc] == true) {
 					finished = true;
+					trace("inPlace[mc]: ", inPlace[mc])
 				} else {
 					finished = false;
 				}
 			} // end for loop
 			trace("finished: ", finished)
-			if(finished) {
+	trace("inPlace.length: ", inPlace.length)
+			if(inPlace.length == 20) {
 				// all dropzones are occupied
 				trace("Game Complete");
 			} else {
