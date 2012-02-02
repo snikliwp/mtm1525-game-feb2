@@ -13,13 +13,15 @@
 		public var puzza:MovieClip = new MovieClip;
 		public var puzzb:MovieClip = new MovieClip;
 		public var base:MovieClip = new MovieClip;
-//		public var tmp:String;
+		public var puzzle:String = "puzza";
 //		public var tmp1:String;
 //		public var symbolClass:Class;
 //		public var symbolClass1:Class;
 //		public var mc:MovieClip;
 //		public var mc1:MovieClip;
 		public var currentObj:MovieClip = null;
+//		public var basex:Array = new Array(349.30, 413.30, 496.30, 576.30, 641.95, 340.85, 420.30, 500.30, 580.30, 658.80, 350.85, 418.35, 498.80, 580.35, 647.80, 339.85, 420.80, 499.35, 580.30, 660.35);
+//		public var basey:Array = new Array(158.35, 173.35, 162.35, 175.35, 163.35, 234.35, 231.90, 233.35, 234.90, 236.85, 306.90, 310.35, 311.35, 312.35, 312.35, 372.35, 383.35, 375.35, 386.35, 373.35);
 		public var basex:Array = new Array(351.40, 418.35, 502.30, 582.30, 647.97, 340.85, 420.30, 500.30, 580.30, 658.80, 350.85, 418.35, 498.80, 580.35, 647.80, 339.85, 420.80, 499.35, 580.30, 660.35);
 		public var basey:Array = new Array(157.40, 170.90, 160.90, 172.90, 161.90, 234.35, 231.90, 233.35, 234.90, 236.85, 306.90, 310.35, 311.35, 312.35, 312.35, 372.35, 383.35, 375.35, 386.35, 373.35);
 		
@@ -64,15 +66,20 @@ trace("Starting to add the puzzle A pieces");
 				mc=new symbolClass();
 				mc.x = Math.round(Math.random() * 920 + 70);		//50.00000000000000000 - 950.0000000000000000
 				mc.y = Math.round(Math.random() * 720 + 70);		//50.00000000000000000 - 750.0000000000000000
-				if ((mc.y > 120 && mc.y < 420) || (mc.x > 300 && mc.x < 700)) { // don't let the piece stay on top of the puzzle
+				if ((mc.y > 115 && mc.y < 425) || (mc.x > 295 && mc.x < 705)) { // don't let the piece stay on top of the puzzle
 				}  else {  // add the piece to the stage
 					//add the event listeners to the objects so they can be dragged
 					mc.addEventListener(MouseEvent.MOUSE_DOWN, beginDrag);
 					mc.addEventListener(MouseEvent.MOUSE_UP, endDrag);
 					// setup the start point so we can return the piece to this point
 					mc.startPoint = new Point(mc.x, mc.y);
+//					mc.dropZone = new Point(mc.x, mc.y);
 					mc.dropZone = new Point(basex[i-1], basey[i-1]);
-trace("puzza.dropZone: ", mc, mc.dropZone);
+//					mc.dropZone.x = basex[i-1];
+//					mc.dropZone.y = basey[i-1];
+					
+					mc.inPlace = false;
+trace("puzza.dropZone: ", mc, mc.dropZone, mc.inPlace);
 //					mc.holding = null;
 					addChild(mc);
 					i++;
@@ -81,29 +88,30 @@ trace("puzza.dropZone: ", mc, mc.dropZone);
 //				trace(mc.dropzone);
 			}  // endfor
 			
-trace("Starting to add the puzzle B pieces");
-			for (var n:int=1; n<=20;) { // add the puzzle B pieces
-				tmp="puzzb"+n;
-				symbolClass=getDefinitionByName(tmp) as Class;
-				mc=new symbolClass();
-				mc.x = Math.round(Math.random() * 920 + 70);		//50.00000000000000000 - 950.0000000000000000
-				mc.y = Math.round(Math.random() * 720 + 70);		//50.00000000000000000 - 750.0000000000000000
-				if ((mc.y > 120 && mc.y < 420) || (mc.x > 300 && mc.x < 700)) { // don't let the piece stay on top of the puzzle
-				}  else { // add the piece to the stage
-					//add the event listeners to the objects so they can be dragged
-					mc.addEventListener(MouseEvent.MOUSE_DOWN, beginDrag);
-					mc.addEventListener(MouseEvent.MOUSE_UP, endDrag);
-					// setup the start point so we can return the piece to this point
-					mc.startPoint = new Point(mc.x, mc.y);
-					mc.dropZone = new Point(basex[i-1], basey[i-1]);
-trace("puzzb.dropZone: ", mc, mc.dropZone);
-//					mc.holding = null;
-					addChild(mc);
-					n++;
-				}	// endelse
-//				trace("Coordinates over the puzzle base pieces  ", mc.x, mc.y);
-//				trace(mc.dropzone);
-			}  // endfor
+//trace("Starting to add the puzzle B pieces");
+//			for (var n:int=1; n<=20;) { // add the puzzle B pieces
+//				tmp="puzzb"+n;
+//				symbolClass=getDefinitionByName(tmp) as Class;
+//				mc=new symbolClass();
+//				mc.x = Math.round(Math.random() * 920 + 70);		//50.00000000000000000 - 950.0000000000000000
+//				mc.y = Math.round(Math.random() * 720 + 70);		//50.00000000000000000 - 750.0000000000000000
+//				if ((mc.y > 115 && mc.y < 425) || (mc.x > 295 && mc.x < 705)) { // don't let the piece stay on top of the puzzle
+//				}  else { // add the piece to the stage
+//					//add the event listeners to the objects so they can be dragged
+//					mc.addEventListener(MouseEvent.MOUSE_DOWN, beginDrag);
+//					mc.addEventListener(MouseEvent.MOUSE_UP, endDrag);
+//					// setup the start point so we can return the piece to this point
+//					mc.startPoint = new Point(mc.x, mc.y);
+//					mc.dropZone = new Point(basex[n-1], basey[n-1]);
+//					mc.inPlace = null;
+//trace("puzzb.dropZone: ", mc, mc.dropZone);
+////					mc.holding = null;
+//					addChild(mc);
+//					n++;
+//				}	// endelse
+////				trace("Coordinates over the puzzle base pieces  ", mc.x, mc.y);
+////				trace(mc.dropzone);
+//			}  // endfor
 			
 			
 
@@ -183,36 +191,40 @@ trace("in function beginDrag");
 		public function endDrag(ev:Event):void{
 trace("in function endDrag");
 			//stop dragging
-			var mc:MovieClip = MovieClip(ev.currentTarget);					// make the current object from the event into a movie clip
+			if (ev.currentTarget != stage) {  // are we dragging something?
+trace("in not null if");
+				var mc:MovieClip = MovieClip(ev.currentTarget);					// make the current object from the event into a movie clip
 //trace("current object: ", currentObj);
 trace("mc: ", mc);
 			//stop event propagation
 //			if (currentObj != null) {  // are we dragging something?
-			if (mc != null) {  // are we dragging something?
-trace("in not null if");
-//				currentObj.stopDrag();  // if so drop it
+				currentObj.stopDrag();  // if so drop it
 				mc.stopDrag();  // if so drop it
 //trace("currentObj.dropZone: ", currentObj, currentObj.dropzone);
-trace("mc.dropZone: ", mc, mc.dropzone);
+trace("mc.dropZone: ", mc, mc.dropZone);
+trace("mc.dropZone.x and y: ", mc, mc.dropZone.x, mc.dropZone.y);
 			//decide whether or not to snap the object back to start or on top of dropzone
 //			if(currentObj.hitTestPoint(currentObj.dropZone.x, currentObj.dropZone.y, true)) { // am I over my drop zone?
 			if(mc.hitTestPoint(mc.dropZone.x, mc.dropZone.y, true)) { // am I over my drop zone?
-				if (currentObj.dropzone.holding != null) {
-					currentObj.dropzone.holding.x = currentObj.dropzone.holding.startPoint.x;
-					currentObj.dropzone.holding.y = currentObj.dropzone.holding.startPoint.y;
-					currentObj.dropzone.holding = null;
-					} // endif
-				currentObj.x = currentObj.dropzone.x; //yes, well snap to the center of my drop zone
-				currentObj.y = currentObj.dropzone.y;
-				currentObj.dropzone.holding = currentObj;
+trace("in hitTestPoint if");
+//				if (currentObj.dropzone.holding != null) {
+//					currentObj.dropzone.holding.x = currentObj.dropzone.holding.startPoint.x;
+//					currentObj.dropzone.holding.y = currentObj.dropzone.holding.startPoint.y;
+//					currentObj.dropzone.holding = null;
+//					} // endif
+				mc.x = mc.dropZone.x; //yes, well snap to the center of my drop zone
+trace("mc.x = mc.dropzone.x");
+				mc.y = mc.dropZone.y;
+trace("mc.x and mc.y: ", mc, mc.x, mc.y);
+				mc.inPlace = true;
 				isDone();
 			} // endif
 			else { // not over my drop zone, then go back to my origin
-				currentObj.x = currentObj.startPoint.x;
-				currentObj.y = currentObj.startPoint.y;
+				mc.x = mc.startPoint.x;
+				mc.y = mc.startPoint.y;
 			} // endelse
 
-				currentObj = null
+//				currentObj = null
 			} // endif
 			
 		} // end function endDrag
@@ -220,10 +232,29 @@ trace("mc.dropZone: ", mc, mc.dropzone);
 		public function isDone():void{
 trace("in function isDone");
 			//decide if the game is complete and trigger the final animation
-//			if(topLayer_mc.holding != null && middleLayer_mc.holding != null) {
+			var tmp:String;
+			var symbolClass:Class;
+			var mc:MovieClip;
+			var finished:Boolean = false;
+//trace("Starting to add the base pieces");
+			for (var i:int=1; i<=20; i++) { // check to see if all pieces are in place
+				tmp = puzzle + i;
+				symbolClass=getDefinitionByName(tmp) as Class;
+				mc = new symbolClass();
+				trace("mc.inPlace: ", mc.inPlace); 
+				if (mc.inPlace = true) {
+					finished = true;
+				} else {
+					finished = false;
+				}
+			} // end for loop
+			trace("finished: ", finished)
+			if(finished) {
 				// all dropzones are occupied
-//				trace("Game Complete");
-//			} // endif
+				trace("Game Complete");
+			} else {
+				trace("Game Not Complete");
+			}// endif
 			
 		} // end  function isDone
 		
