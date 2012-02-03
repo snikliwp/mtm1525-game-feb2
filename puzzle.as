@@ -9,36 +9,33 @@
 	
 	
 	
-	public class puzzles_bad extends MovieClip {
+	public class puzzle extends MovieClip {
 		public var puzza:MovieClip = new MovieClip;
 		public var puzzb:MovieClip = new MovieClip;
 		public var base:MovieClip = new MovieClip;
-		public var puzzle:String = "puzza";
-//		public var tmp1:String;
-//		public var symbolClass:Class;
-//		public var symbolClass1:Class;
-//		public var mc:MovieClip;
-//		public var mc1:MovieClip;
+		public var whatPuzzle:String = "puzza";
+		public var totalPieces:Number = 0;
 		public var currentObj:MovieClip = null;
-//		public var basex:Array = new Array(349.30, 413.30, 496.30, 576.30, 641.95, 340.85, 420.30, 500.30, 580.30, 658.80, 350.85, 418.35, 498.80, 580.35, 647.80, 339.85, 420.80, 499.35, 580.30, 660.35);
-//		public var basey:Array = new Array(158.35, 173.35, 162.35, 175.35, 163.35, 234.35, 231.90, 233.35, 234.90, 236.85, 306.90, 310.35, 311.35, 312.35, 312.35, 372.35, 383.35, 375.35, 386.35, 373.35);
-		public var basex:Array = new Array(351.40, 418.35, 502.30, 582.30, 647.97, 340.85, 420.30, 500.30, 580.30, 658.80, 350.85, 418.35, 498.80, 580.35, 647.80, 339.85, 420.80, 499.35, 580.30, 660.35);
-		public var basey:Array = new Array(157.40, 170.90, 160.90, 172.90, 161.90, 234.35, 231.90, 233.35, 234.90, 236.85, 306.90, 310.35, 311.35, 312.35, 312.35, 372.35, 383.35, 375.35, 386.35, 373.35);
+		public var basex:Array = new Array(349.30, 413.30, 496.30, 576.30, 641.95, 338.80, 415.30, 494.95, 573.95, 653.30, 348.95, 413.95, 493.30, 575.30, 641.95, 338.35, 415.30, 492.95, 575.30, 655.30);
+		public var basey:Array = new Array(158.35, 173.35, 162.35, 175.35, 163.35, 234.35, 233.35, 234.00, 237.35, 237.35, 308.35, 308.35, 309.00, 311.35, 311.35, 370.00, 381.35, 373.00, 385.35, 372.35);
+//		public var basex:Array = new Array(351.40, 418.35, 502.30, 582.30, 647.97, 340.85, 420.30, 500.30, 580.30, 658.80, 350.85, 418.35, 498.80, 580.35, 647.80, 339.85, 420.80, 499.35, 580.30, 660.35);
+//		public var basey:Array = new Array(157.40, 170.90, 160.90, 172.90, 161.90, 234.35, 231.90, 233.35, 234.90, 236.85, 306.90, 310.35, 311.35, 312.35, 312.35, 372.35, 383.35, 375.35, 386.35, 373.35);
 		public var inPlace:Array = new Array;
 		
 		//create the global var for tracking the dragging object
 		
-		public function puzzles_bad() {
+		public function puzzle() {
 			// constructor code
-//			puzzaall.visible = false;
-			addPieces();
+//			puzzselect.visible = true;
+			addBasePieces();
+			stage.addEventListener(Event.MOUSE_LEAVE, endDrag);
 			addDropPoints();
 			addDragging();
 			setupDropZones();
 		}  // end  function puzzles
 		
 		
-		public function addPieces():void{
+		public function addBasePieces():void{
 			//add the pieces to the stage
 			//use the Point object
 trace("in function addPieces");
@@ -59,7 +56,10 @@ trace("Starting to add the base pieces");
 				trace("these are are the base pieces and it's x and y coords: ", mc, mc.x, mc.y);
 //				trace(mc.dropzone);
 			}  // endfor
+		} // end  function addBasePieces
 			
+		public function addPuzzleAPieces():void{
+			//add the pieces to the stage
 trace("Starting to add the puzzle A pieces");
 			for (var i:int=1; i<=20;) { // add the puzzle A pieces
 				tmp="puzza"+i;
@@ -76,20 +76,16 @@ trace("Starting to add the puzzle A pieces");
 					mc.startPoint = new Point(mc.x, mc.y);
 					// set up the drop zone coordinates
 					mc.dropZone = new Point(basex[i-1], basey[i-1]);
-					// set up a holder to know if we are on the stage					
-					inPlace[mc] = false;
 					mc.txt = tmp;
-trace("puzza.dropZone, inPlace: ", mc, mc.dropZone, mc.inPlace);
-//					mc.holding = null;
 					addChild(mc);
 					i++;
-trace("puzza.dropZone, inPlace: ", mc, mc.dropZone, mc.inPlace);
 					
 				}// endelse
-//				trace("Coordinates over the puzzle base pieces  ", mc.x, mc.y);
-//				trace(mc.dropzone);
 			}  // endfor
+		} // end  function addPuzzleAPieces
 			
+		public function addPuzzleBPieces():void{
+			//add the pieces to the stage
 //trace("Starting to add the puzzle B pieces");
 //			for (var n:int=1; n<=20;) { // add the puzzle B pieces
 //				tmp="puzzb"+n;
@@ -118,35 +114,11 @@ trace("puzza.dropZone, inPlace: ", mc, mc.dropZone, mc.inPlace);
 			
 
 
-		} // end  function addPieces
+		} // end  function addPuzzleBPieces
 		
 		public function addDropPoints():void{
 //			//add the possible drop zones for each draggable object
 trace("in function addDropPoints");
-//
-//			var tmp:String;
-//			var tmp1:String;
-//			var symbolClass:Class;
-//			var symbolClass1:Class;
-//			var mc:MovieClip;
-//			var mc1:MovieClip;
-//			for (var i:int=1; i<=20; i++) {
-//				tmp="puzza"+i;
-//				tmp1="base"+i;
-//				trace("tmp1.x and tmp1.y ", tmp1.x, tmp1.y);
-//				
-//				symbolClass=getDefinitionByName(tmp) as Class;
-//				symbolClass1=getDefinitionByName(tmp1) as Class;
-//				mc=new symbolClass();
-//				mc1=new symbolClass1();
-//				mc.dropzone = mc1;
-//				mc1.holding = null;
-//				
-//				trace("mc and mc1 ", mc, mc1);
-//				trace("mc.x and mc.y ", mc.x, mc.y);
-//				trace("mc1.x and mc1.y ", mc1.x, mc1.y);
-//				trace("mc.dropzone ",mc.dropzone.x, mc.dropzone.y);
-//			} // endfor
 		}  // end  function addDropPoints
 		
 		
@@ -200,7 +172,7 @@ trace("in not null if");
 trace("mc: ", mc);
 			//stop event propagation
 //			if (currentObj != null) {  // are we dragging something?
-				currentObj.stopDrag();  // if so drop it
+//				currentObj.stopDrag();  // if so drop it
 				mc.stopDrag();  // if so drop it
 //trace("currentObj.dropZone: ", currentObj, currentObj.dropzone);
 trace("mc.dropZone: ", mc, mc.dropZone);
@@ -219,12 +191,13 @@ trace("in hitTestPoint if");
 //trace("mc.x = mc.dropzone.x");
 				mc.y = mc.dropZone.y;
 //trace("mc.x and mc.y: ", mc, mc.x, mc.y);
+				totalPieces = totalPieces +1
 				inPlace[String(mc)] = true;
 				trace("inPlace ", inPlace[String(mc)]);
 				trace("string of mc: ", String(mc));
 // trace("mc.inPlace: ", mc, mc.inPlace);
 				
-				isDone(mc);
+				isDone();
 			} // endif
 			else { // not over my drop zone, then go back to my origin
 				mc.x = mc.startPoint.x;
@@ -236,36 +209,34 @@ trace("in hitTestPoint if");
 			
 		} // end function endDrag
 		
-		public function isDone(passed):void{
+		public function isDone():void{
 trace("in function isDone");
-trace("passed: ", passed);
-trace("passed.inPlace: ", passed, passed.inPlace);
+//trace("passed: ", passed);
+//trace("passed.inPlace: ", passed, passed.inPlace);
 
 			//decide if the game is complete and trigger the final animation
-			var tmp:String;
-			var symbolClass:Class;
-			var mc:MovieClip;
-			var finished:Boolean = false;
-//trace("Starting to add the base pieces");
-			for (var i:int=1; i<=20; i++) { // check to see if all pieces are in place
-				tmp = puzzle + i;
-				symbolClass=getDefinitionByName(tmp) as Class;
-				mc = new symbolClass();
-//				trace("mc.inPlace: ", mc, mc.inPlace); 
-				if (inPlace[mc] == true) {
-					finished = true;
-					trace("inPlace[mc]: ", inPlace[mc])
-				} else {
-					finished = false;
-				}
-			} // end for loop
-			trace("finished: ", finished)
-	trace("inPlace.length: ", inPlace.length)
-			if(inPlace.length == 20) {
+//			var tmp:String;
+//			var symbolClass:Class;
+//			var mc:MovieClip;
+//			var finished:Boolean = false;
+//			//trace("Starting to add the base pieces");
+//			for (var i:int=1; i<=20; i++) { // check to see if all pieces are in place
+//				tmp = whatPuzzle + i;
+//				symbolClass=getDefinitionByName(tmp) as Class;
+//				mc = new symbolClass();
+////				trace("mc.inPlace: ", mc, mc.inPlace); 
+//				if (totalPieces < 20) {
+//				} else {
+//					finished = false;
+//				}
+//			} // end for loop
+//			trace("finished: ", finished)
+//	trace("inPlace.length: ", inPlace.length)
+				if (totalPieces < 20) {
 				// all dropzones are occupied
-				trace("Game Complete");
-			} else {
 				trace("Game Not Complete");
+			} else {
+				trace("Game Complete");
 			}// endif
 			
 		} // end  function isDone
