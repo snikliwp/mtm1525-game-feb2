@@ -98,10 +98,13 @@ trace("in beginA: ");
 			welcome_mc.visible = false;
 			welcome_mc.removeEventListener(MouseEvent.CLICK, begin);
 			//add the pieces to the stage
+trace("in beginA: 1");
 			var tmp:String;
 			var symbolClass:Class;
 			var mc:MovieClip;
+trace("in beginA: 2");
 			for (var i:int=1; i<=20;) { // add the puzzle A pieces
+trace("in beginA: 3");
 				tmp="puzza"+i;
 				symbolClass=getDefinitionByName(tmp) as Class;
 				mc=new symbolClass();
@@ -114,14 +117,21 @@ trace("in beginA: ");
 					mc.addEventListener(MouseEvent.MOUSE_UP, endDrag);
 					// setup the start point so we can return the piece to this point
 					mc.startPoint = new Point(mc.x, mc.y);
+trace("in beginA: mc.startpoint = ", mc.startPoint);
+trace("in beginA: mc.x = ", mc.x);
+trace("in beginA: mc.y = ", mc.y);
 					// set up the drop zone coordinates
 					mc.dropZone = new Point(basex[i-1], basey[i-1]);
 					mc.rotation = Math.round(Math.random() * 30 - 20);
 					addChild(mc);
+trace("in beginA: mc = ", mc);
 					i++;
 				}// endelse
+trace("in beginA: 4");
 			}  // endfor
+trace("in beginA: 5");
 		} // end  function beginA
+trace("in beginA: 6");
 
 		public function addBasePieces():void{
 			//add the pieces to the stage
@@ -139,6 +149,7 @@ trace("in function addBasePieces");
 				mc.y = basey[i - 1]; // this is the y position on stage to hold the piece
 				mc.holding = null;	// set the holding property to null so it isn't holding anything
 				addChild(mc);	//add the base piece to the stage
+trace("in function addBasePieces: 1");
 			}  // endfor
 		} // end  function addBasePieces
 			
