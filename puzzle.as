@@ -20,7 +20,7 @@
 		public var currentObj:MovieClip = null;
 		public var basex:Array = new Array(349.30, 413.30, 496.30, 576.30, 641.95, 338.80, 415.30, 494.95, 573.95, 653.30, 348.95, 413.95, 493.30, 575.30, 641.95, 338.35, 415.30, 492.95, 575.30, 655.30);
 		public var basey:Array = new Array(158.35, 173.35, 162.35, 175.35, 163.35, 234.35, 233.35, 234.00, 237.35, 237.35, 308.35, 308.35, 309.00, 311.35, 311.35, 370.00, 381.35, 373.00, 385.35, 372.35);
-		public var inPlace:Array = new Array;
+//		public var inPlace:Array = new Array;
 		public var welcome_mc:MovieClip = new beginTitle();
 		public var beauFinal_mc:MovieClip = new beauFinal();
 		public var samFinal_mc:MovieClip = new samFinal();
@@ -33,47 +33,52 @@ trace("in Constructor: ");
 			// constructor code
 //			setup();
 			addBasePieces();
-//			Mouse.cursor = Mouse.cursor.BUTTON;
 			this.addChild(welcome_mc); // instantiate the welcome screen
 			welcome_mc.visible = true;	// turn it on
 			welcome_mc.x = 499;
 			welcome_mc.y = 270;
-			welcome_mc.addEventListener(MouseEvent.CLICK, begin, true);
-			this.addChild(beauFinal_mc); // instantiate the solve screen
-			beauFinal_mc.visible = false;	// turn it off
-			beauFinal_mc.x = 499;
-			beauFinal_mc.y = 270;
-			this.addChild(samFinal_mc); // instantiate the solve screen
-			samFinal_mc.visible = false;	// turn it off
-			samFinal_mc.x = 499;
-			samFinal_mc.y = 270;
-			this.addChild(gameOver_mc); // instantiate the solve screen
-			gameOver_mc.visible = false;	// turn it off
-			gameOver_mc.x = 499;
-			gameOver_mc.y = 451.45;
-			stage.addEventListener(Event.MOUSE_LEAVE, endDrag);
-			startChild = numChildren;
-			trace("numChildren: ",numChildren);
-			trace("startChild: ", startChild);
-			
+			welcome_mc.addEventListener(MouseEvent.CLICK, begin, true); // listen for a click on the welcome screen
+			stage.addEventListener(Event.MOUSE_LEAVE, endDrag); // set up the cursor leaving the stage event listener
+			startChild = numChildren; // with all the base elements in place, how many children exist on the stage?
+		
 		}  // end  function puzzle
 		
 		public function playAgain(ev):void{
 trace("in playAgain: ");
-			samFinal_mc.visible = false;	// turn it off
-			beauFinal_mc.visible = false;	// turn it off
-			gameOver_mc.visible = false;
+			if (whatPuzzle == "puzza") {
+				beauFinal_mc.parent.removeChild(beauFinal_mc); // get rid of the solve screen
+			} else {
+				samFinal_mc.parent.removeChild(samFinal_mc); // get rid of the solve screen
+			}
+//			samFinal_mc.visible = false;	// turn it off
+//			beauFinal_mc.visible = false;	// turn it off
+//			gameOver_mc.visible = false;
+			gameOver_mc.parent.removeChild(gameOver_mc); // get rid of the game over screen
 			whatPuzzle = "";
 			endChild = numChildren;
-			while (startChild - 1 <= endChild) {
+			var nextThing:MovieClip;
+			while (startChild <= endChild) {
+			nextThing = MovieClip(this.getChildAt(this.numChildren - 1));
 				this.removeChildAt(endChild-1);
 				endChild = numChildren;
 			} // end while loop
-			var topThing:MovieClip = MovieClip(this.getChildAt(this.numChildren - 1));
-			swapChildren(welcome_mc,topThing);
-			welcome_mc.visible = true;
+//			this.removeChildAt(endChild-1);
+//			var topThing:MovieClip = MovieClip(this.getChildAt(this.numChildren - 1));
+//			welcome_mc.visible = true;
+
+			this.addChild(welcome_mc); // instantiate the welcome screen
+			welcome_mc.visible = true;	// turn it on
+			welcome_mc.x = 499;
+			welcome_mc.y = 270;
+			welcome_mc.addEventListener(MouseEvent.CLICK, begin, true); // listen for a click on the welcome screen
+
+
+//			swapChildren(welcome_mc,topThing);
+trace("in playAgain: 7");
 			gameOver_mc.removeEventListener(MouseEvent.CLICK, playAgain);
-			welcome_mc.addEventListener(MouseEvent.CLICK, begin, true);
+trace("in playAgain: 8");
+//			welcome_mc.addEventListener(MouseEvent.CLICK, begin, true);
+trace("in playAgain: 9");
 		}
 		
 //		public function setup():void{
@@ -84,32 +89,29 @@ trace("in playAgain: ");
 trace("in begin: ");
 			var mc:MovieClip = MovieClip(ev.target);
 			totalPieces = 0;
+			welcome_mc.removeEventListener(MouseEvent.CLICK, begin);
+			this.removeChild(welcome_mc); // get rid of the welcome screen
 			if (mc.name == "puzzbeau") {
 				whatPuzzle = "puzza";
 				beginA();
 			} else {
 				whatPuzzle = "puzzb";
 				beginB();
-			} /// endelse
+			} // endelse
 		} // end  function begin
 		
 		public function beginA():void{
 trace("in beginA: ");
-			welcome_mc.visible = false;
-			welcome_mc.removeEventListener(MouseEvent.CLICK, begin);
 			//add the pieces to the stage
-trace("in beginA: 1");
 			var tmp:String;
 			var symbolClass:Class;
 			var mc:MovieClip;
-trace("in beginA: 2");
 			for (var i:int=1; i<=20;) { // add the puzzle A pieces
-trace("in beginA: 3");
 				tmp="puzza"+i;
 				symbolClass=getDefinitionByName(tmp) as Class;
 				mc=new symbolClass();
-				mc.x = Math.round(Math.random() * 920 + 70);		//50.00000000000000000 - 950.0000000000000000
-				mc.y = Math.round(Math.random() * 720 + 70);		//50.00000000000000000 - 750.0000000000000000
+				mc.x = Math.round(Math.random() * 820 + 70);		//50.00000000000000000 - 850.0000000000000000
+				mc.y = Math.round(Math.random() * 620 + 70);		//50.00000000000000000 - 650.0000000000000000
 				if (mc.hitTestObject(welcome_mc)) { // don't let the piece stay on top of the puzzle
 				}  else {  // add the piece to the stage
 					//add the event listeners to the objects so they can be dragged
@@ -117,25 +119,18 @@ trace("in beginA: 3");
 					mc.addEventListener(MouseEvent.MOUSE_UP, endDrag);
 					// setup the start point so we can return the piece to this point
 					mc.startPoint = new Point(mc.x, mc.y);
-trace("in beginA: mc.startpoint = ", mc.startPoint);
-trace("in beginA: mc.x = ", mc.x);
-trace("in beginA: mc.y = ", mc.y);
 					// set up the drop zone coordinates
 					mc.dropZone = new Point(basex[i-1], basey[i-1]);
 					mc.rotation = Math.round(Math.random() * 30 - 20);
+					mc.buttonMode = true;
 					addChild(mc);
-trace("in beginA: mc = ", mc);
 					i++;
 				}// endelse
-trace("in beginA: 4");
 			}  // endfor
-trace("in beginA: 5");
 		} // end  function beginA
-trace("in beginA: 6");
 
 		public function addBasePieces():void{
-			//add the pieces to the stage
-			//use the Point object
+			//add the base pieces to the stage
 trace("in function addBasePieces");
 			
 			var tmp:String;
@@ -149,7 +144,6 @@ trace("in function addBasePieces");
 				mc.y = basey[i - 1]; // this is the y position on stage to hold the piece
 				mc.holding = null;	// set the holding property to null so it isn't holding anything
 				addChild(mc);	//add the base piece to the stage
-trace("in function addBasePieces: 1");
 			}  // endfor
 		} // end  function addBasePieces
 			
@@ -165,8 +159,8 @@ trace("in function beginB");
 				tmp="puzzb"+i;
 				symbolClass=getDefinitionByName(tmp) as Class;
 				mc=new symbolClass();
-				mc.x = Math.round(Math.random() * 920 + 70);		//50.00000000000000000 - 950.0000000000000000
-				mc.y = Math.round(Math.random() * 720 + 70);		//50.00000000000000000 - 750.0000000000000000
+				mc.x = Math.round(Math.random() * 820 + 70);		//50.00000000000000000 - 850.0000000000000000
+				mc.y = Math.round(Math.random() * 620 + 70);		//50.00000000000000000 - 650.0000000000000000
 				if (mc.hitTestObject(welcome_mc)) { // don't let the piece stay on top of the puzzle
 				}  else {  // add the piece to the stage
 					//add the event listeners to the objects so they can be dragged
@@ -177,14 +171,11 @@ trace("in function beginB");
 					// set up the drop zone coordinates
 					mc.dropZone = new Point(basex[i-1], basey[i-1]);
 					mc.rotation = Math.round(Math.random() * 30 - 20);
+					mc.buttonMode = true;
 					addChild(mc);
 					i++;
 				}// endelse
 			}  // endfor
-			
-			
-
-
 		} // end  function addPuzzleBPieces
 		
 		public function beginDrag(ev:MouseEvent):void{
@@ -212,7 +203,7 @@ trace("in function endDrag");
 					mc.y = mc.dropZone.y;
 					totalPieces = totalPieces +1
 					trace(totalPieces);
-					inPlace[String(mc)] = true;
+//					inPlace[String(mc)] = true;
 					isDone();
 			} else { // not over my drop zone, then go back to my origin
 				if (mc.hitTestObject(welcome_mc)) { // if I am over the puzzle go back to origin
@@ -232,21 +223,23 @@ trace("in function endDrag");
 trace("in function isDone");
 			if (totalPieces < 20) {
 				trace("Game Not Complete");
-			} else { // all dropzones are occupied
+			} else { // all pieces are in place
 				trace("Game Complete");
-				var topThing:MovieClip;
-				topThing = MovieClip(this.getChildAt(this.numChildren - 1));
-				swapChildren(beauFinal_mc,topThing);
+				this.addChild(gameOver_mc); // instantiate the game over screen
+				gameOver_mc.x = 499;
+				gameOver_mc.y = 451.45;
 				gameOver_mc.visible = true;
 				gameOver_mc.addEventListener(MouseEvent.CLICK, playAgain, true);
 				if(whatPuzzle == "puzza") {
-					topThing = MovieClip(this.getChildAt(this.numChildren - 1));
-					swapChildren(beauFinal_mc,topThing);
+					addChild(beauFinal_mc); // instantiate the solve screen
+					beauFinal_mc.x = 499;
+					beauFinal_mc.y = 270;
 					beauFinal_mc.visible = true;	// turn it on
 					beauFinal_mc.play();
 				   } else {
-					topThing = MovieClip(this.getChildAt(this.numChildren - 1));
-					swapChildren(samFinal_mc,topThing);
+					addChild(samFinal_mc); // instantiate the solve screen
+					samFinal_mc.x = 499;
+					samFinal_mc.y = 270;
 					samFinal_mc.visible = true;	// turn it on
 					samFinal_mc.play();
 				   }	// endelse
